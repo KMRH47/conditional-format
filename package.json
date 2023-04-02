@@ -2,7 +2,9 @@
   "name": "conditional-format",
   "displayName": "Conditional Format",
   "description": "Format Selection or Document",
+  "publisher": "KMRH47",
   "version": "1.0.0",
+  "icon": "./icon.png",
   "engines": {
     "vscode": "^1.77.0"
   },
@@ -28,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/KMRH47/vscode-condtional-format"
+    "url": "https://github.com/KMRH47/condtional-format"
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
