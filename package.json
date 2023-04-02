@@ -3,7 +3,7 @@
   "displayName": "Conditional Format",
   "description": "Format Selection or Document",
   "publisher": "KMRH47",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "icon": "./icon.png",
   "engines": {
     "vscode": "^1.77.0"
