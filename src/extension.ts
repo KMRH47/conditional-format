@@ -16,7 +16,6 @@ export function activate(context: vscode.ExtensionContext) {
       }
 
       const document = editor.document;
-      const selection = editor.selection;
       const fullRange = new vscode.Range(0, 0, document.lineCount, 0);
       const formatOptions = getFormatOptions(document);
       const formattedTextEdits = await getFormattedTextEdits(
@@ -29,6 +28,8 @@ export function activate(context: vscode.ExtensionContext) {
         showError(UNABLE_TO_FORMAT);
         return;
       }
+
+      const selection = editor.selection;
 
       if (selection.isEmpty) {
         formatDocument(editor, formattedTextEdits);
