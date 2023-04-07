@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { MISSING_FORMATTER, UNABLE_TO_FORMAT } from "../constants/strings";
+import { ERR_MISSING_FORMATTER, ERR_UNABLE_TO_FORMAT } from "../constants/strings";
 import {
   getFormatOptions,
   getFormattedTextEdits,
@@ -28,12 +28,12 @@ export async function formatCommand(): Promise<void> {
       formatOptions
     );
   } catch (error: any) {
-    showError(`Error: ${error.message || MISSING_FORMATTER}`);
+    showError(`Error: ${error.message || ERR_MISSING_FORMATTER}`);
     return;
   }
 
   if (!formattedTextEdits) {
-    showError(UNABLE_TO_FORMAT);
+    showError(ERR_UNABLE_TO_FORMAT);
     return;
   }
 

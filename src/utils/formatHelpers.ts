@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import { showInfo } from "./messages";
 import {
-  DOCUMENT_ALREADY_FORMATTED,
-  SELECTION_ALREADY_FORMATTED,
+  INFO_DOCUMENT_ALREADY_FORMATTED,
+  INFO_SELECTION_ALREADY_FORMATTED,
 } from "../constants/strings";
 
 export function getFormatOptions(
@@ -30,7 +30,7 @@ export async function formatDocument(
   formattedTextEdits: vscode.TextEdit[]
 ): Promise<void> {
   if (formattedTextEdits.length === 0) {
-    showInfo(DOCUMENT_ALREADY_FORMATTED);
+    showInfo(INFO_DOCUMENT_ALREADY_FORMATTED);
   } else {
     await vscode.commands.executeCommand("editor.action.formatDocument");
   }
@@ -56,6 +56,6 @@ export async function formatSelection(
   );
 
   if (!anyEditApplied) {
-    showInfo(SELECTION_ALREADY_FORMATTED);
+    showInfo(INFO_SELECTION_ALREADY_FORMATTED);
   }
 }
