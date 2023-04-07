@@ -28,7 +28,7 @@ export async function formatCommand(): Promise<void> {
       formatOptions
     );
   } catch (error: any) {
-    showError(`Error: ${error.message || ERR_MISSING_FORMATTER}`);
+    showError(error.message || ERR_MISSING_FORMATTER);
     return;
   }
 
