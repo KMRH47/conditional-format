@@ -18,15 +18,25 @@
       {
         "command": "conditionalFormat.format",
         "title": "Format Selection or Document"
-    }
+      }
     ],
     "keybindings": [
       {
-          "command": "conditionalFormat.format",
-          "key": "CTRL+K CTRL+D",
-          "mac": "CMD+K CMD+D"
+        "command": "conditionalFormat.format",
+        "key": "CTRL+K CTRL+D",
+        "mac": "CMD+K CMD+D"
       }
-  ]
+    ],
+    "configuration": {
+      "title": "Conditional Format",
+      "properties": {
+        "conditionalFormat.showNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show notifications when formatting."
+        }
+      }
+    }
   },
   "repository": {
     "type": "git",

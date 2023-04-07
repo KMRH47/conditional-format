@@ -1,9 +1,14 @@
 import * as vscode from "vscode";
+import { getConfig } from "./config";
+
+function notificationsEnabled() {
+  return getConfig<boolean>("showNotifications", true);
+}
 
 export function showInfo(message: string): void {
-  vscode.window.showInformationMessage(message);
+  notificationsEnabled() && vscode.window.showInformationMessage(message);
 }
 
 export function showError(message: string): void {
-  vscode.window.showErrorMessage(message);
+  notificationsEnabled() && vscode.window.showErrorMessage(message);
 }
