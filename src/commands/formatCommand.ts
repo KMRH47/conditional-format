@@ -40,8 +40,8 @@ export async function formatCommand(): Promise<void> {
   const selection = editor.selection;
 
   if (selection.isEmpty) {
-    formatDocument(formattedTextEdits);
+    await formatDocument(formattedTextEdits);
   } else {
-    formatSelection(editor, selection, formattedTextEdits);
+    await formatSelection(editor, selection, formattedTextEdits);
   }
 }
