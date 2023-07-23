@@ -5,35 +5,15 @@ import {
   INFO_SELECTION_ALREADY_FORMATTED,
 } from "../constants/strings";
 
-export function getFormatOptions(
-  document: vscode.TextDocument
-): vscode.FormattingOptions | undefined {
-  return vscode.workspace
-    .getConfiguration("editor", document.uri)
-    .get<vscode.FormattingOptions>("formatOnSave");
-}
-
 export async function getFormattedTextEdits(
   document: vscode.TextDocument,
-  range: vscode.Range,
-  formatOptions: vscode.FormattingOptions | undefined
+  range: vscode.Range
 ): Promise<vscode.TextEdit[] | undefined> {
   return await vscode.commands.executeCommand<vscode.TextEdit[]>(
     "vscode.executeFormatRangeProvider",
     document.uri,
-    range,
-    formatOptions
+    range
   );
-}
-
-export async function formatDocument(
-  formattedTextEdits: vscode.TextEdit[]
-): Promise<void> {
-  if (formattedTextEdits.length === 0) {
-    showInfo(INFO_DOCUMENT_ALREADY_FORMATTED);
-  } else {
-    await vscode.commands.executeCommand("editor.action.formatDocument");
-  }
 }
 
 export async function formatSelection(
@@ -44,7 +24,7 @@ export async function formatSelection(
   let anyEditApplied = false;
 
   await editor.edit(
-    (editBuilder) => {
+    editBuilder => {
       for (const textEdit of formattedTextEdits) {
         if (selection.contains(textEdit.range)) {
           editBuilder.replace(textEdit.range, textEdit.newText);
@@ -58,4 +38,22 @@ export async function formatSelection(
   if (!anyEditApplied) {
     showInfo(INFO_SELECTION_ALREADY_FORMATTED);
   }
+}
+
+export async function formatEntireDocument(
+  editor: vscode.TextEditor,
+  formattedTextEdits: vscode.TextEdit[]
+): Promise<void> {
+  if (formattedTextEdits.length === 0) {
+    showInfo(INFO_DOCUMENT_ALREADY_FORMATTED);
+    return;
+  }
+  const entireDocumentSelection = new vscode.Selection(
+    0,
+    0,
+    editor.document.lineCount - 1,
+    editor.document.lineAt(editor.document.lineCount - 1).text.length
+  );
+
+  await formatSelection(editor, entireDocumentSelection, formattedTextEdits);
 }

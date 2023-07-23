@@ -1,10 +1,9 @@
 import * as vscode from "vscode";
-import { ERR_MISSING_FORMATTER, ERR_UNABLE_TO_FORMAT } from "../constants/strings";
+import { ERR_MISSING_FORMATTER } from "../constants/strings";
 import {
-  getFormatOptions,
   getFormattedTextEdits,
-  formatDocument,
   formatSelection,
+  formatEntireDocument,
 } from "../utils/formatHelpers";
 import { showError } from "../utils/messages";
 
@@ -14,33 +13,28 @@ export async function formatCommand(): Promise<void> {
   if (!editor) {
     return;
   }
-
   const document = editor.document;
   const fullRange = new vscode.Range(0, 0, document.lineCount, 0);
-  const formatOptions = getFormatOptions(document);
-
+  const selection = editor.selection;
   let formattedTextEdits: vscode.TextEdit[] | undefined;
 
   try {
-    formattedTextEdits = await getFormattedTextEdits(
-      document,
-      fullRange,
-      formatOptions
-    );
+    formattedTextEdits = await getFormattedTextEdits(document, fullRange);
   } catch (error: any) {
     showError(error.message || ERR_MISSING_FORMATTER);
     return;
   }
 
   if (!formattedTextEdits) {
-    showError(ERR_UNABLE_TO_FORMAT);
+    const formatCommand = selection.isEmpty
+      ? "editor.action.formatDocument"
+      : "editor.action.formatSelection";
+    await vscode.commands.executeCommand(formatCommand);
     return;
   }
 
-  const selection = editor.selection;
-
   if (selection.isEmpty) {
-    await formatDocument(formattedTextEdits);
+    await formatEntireDocument(editor, formattedTextEdits);
   } else {
     await formatSelection(editor, selection, formattedTextEdits);
   }
