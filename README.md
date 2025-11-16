@@ -1,18 +1,27 @@
 # Conditional Format
 
-Conditional Format is a Visual Studio Code extension that combines the functionality of `Format Selection` and `Format Document` keybinds into a single command. When a code block is selected, the extension formats only the selected code. If no text is selected, the extension formats the entire document. This extension utilizes the built-in formatters provided by VSCode, as well as any other formatter extensions you have installed.
+VS Code extension that formats selection or entire document with a single keybind.
 
 ## Features
 
-- Format a selected code block in the active text editor
-- Format the entire document if no text is selected
+- Formats selected code when text is selected
+- Formats entire document when nothing is selected
+- Works with all VS Code formatters
 
 ## Usage
 
-1. Select a code block in the active text editor or leave the selection empty to format the entire document
-2. Press `CTRL+K CTRL+D` or `CMD+K CMD+D` (macOS) on macOS to format the selected code block or the entire document
+Press `Ctrl+K Ctrl+D` (Windows/Linux) or `Cmd+K Cmd+D` (macOS) to format.
 
-### Change keybind
+### Change Keybind
 
-1. Open `Preferences -> Keyboard Shortcuts`
+1. Open `Preferences → Keyboard Shortcuts`
 2. Search for `conditionalFormat.format`
+3. Assign your preferred keybind
+
+## Installation
+
+Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/) or search "Conditional Format" in VS Code extensions.
+
+## License
+
+MIT
