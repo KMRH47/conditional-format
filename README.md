@@ -24,4 +24,4 @@ Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/) or
 
 ## License
 
-MIT
+PolyForm Noncommercial 1.0.0
